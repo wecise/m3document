@@ -1,28 +1,61 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="m3">
+    <Header :auth="auth" v-if="auth" class="header"></Header>
+    <div class="main">
+      <SideBar v-if="auth" class="sidebar" :auth="auth" :global="global"></SideBar>
+      <MainView :auth="auth" :global="global" v-if="global" class="content"></MainView>
+    </div>
+    <Footer :auth="auth" v-if="auth" class="footer"></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import MainView from './components/MainView';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import SideBar from './components/layout/SideBar';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
+    Header,
+    MainView,
+    Footer,
+    SideBar
+  },
+  data(){
+    return {
+      global:null,
+      auth: null
+    }
+  },
+  mounted(){
+    setTimeout(()=>{
+      this.global = this.m3.global;
+      this.auth = this.m3.auth.signedUser;
+    },500)
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    font-size: 12px;
+    font-family: "PingFang SC",Arial,"Microsoft YaHei",sans-serif;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+  }
+  
+  .el-menu .svg-icon{
+    width: 1.2em!important;
+    height: 1.2em!important;
+    padding: 0px 5px 0 0;
+  }
+
+  .main{
+    padding-top: 50px;
+    display: flex;
+  }
 </style>
