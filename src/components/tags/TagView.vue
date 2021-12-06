@@ -1,5 +1,5 @@
 <template>		
-    <div v-if="auth.isAdmin" style="border:unset!important;color:#ffffff;height: unset!important;">
+    <div v-if="m3.auth.isAdmin" style="border:unset!important;color:#ffffff;height: unset!important;">
         <div v-if="model.length > limit">
             <el-dropdown>
                 <span class="el-dropdown-link">
@@ -8,7 +8,7 @@
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item :key="tag" v-for="tag in model">
                         <el-tag
-                            :closable="auth.isAdmin"
+                            :closable="m3.auth.isAdmin"
                             :disable-transitions="false"
                             @close="onTagClose(tag)">
                             {{tag}}
@@ -31,7 +31,7 @@
             <el-tag
                 :key="tag"
                 v-for="tag in model"
-                :closable="auth.isAdmin"
+                :closable="m3.auth.isAdmin"
                 :disable-transitions="false"
                 @close="onTagClose(tag)">
                 {{tag}}
@@ -56,7 +56,7 @@
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item :key="tag" v-for="tag in model">
                         <el-tag
-                            :closable="auth.isAdmin"
+                            :closable="m3.auth.isAdmin"
                             :disable-transitions="false"
                             @close="onTagClose(tag)">
                             {{tag}}
@@ -67,7 +67,7 @@
             <el-tag
                 :key="tag"
                 v-for="tag in model"
-                :closable="auth.isAdmin"
+                :closable="m3.auth.isAdmin"
                 :disable-transitions="false"
                 @close="onTagClose(tag)"
                 v-else>
@@ -153,7 +153,7 @@
             showInput() {
                 this.inputVisible = true;
                 this.$nextTick(() => {
-                    if(this.auth.isAdmin){
+                    if(this.m3.auth.isAdmin){
                         this.$refs.saveTagInput.$refs.input.focus();
                     } else {
                         this.$refs.saveTagInput.focus();

@@ -51,12 +51,12 @@ export default {
         model: {
             handler(val){
                 this.doc = val;
-                this.m3.dfsRead({parent: this.doc.parent, name: this.doc.name}).then(res=>{
+                this.m3.dfs.read({parent: this.doc.parent, name: this.doc.name}).then(res=>{
                     setTimeout(()=>{
                         this.ready = false;
                         this.ready = true;
                     },300)
-                    return _.extend(this.doc, {content:res});
+                    return _.extend(this.doc, {content: res || " " });
                 })
             },
             immediate: true
@@ -68,13 +68,13 @@ export default {
                 let attr = null;
                 
                 if(_.isEmpty(this.doc.attr)){
-                    attr = {remark: '', rate:1};
+                    attr = {remark: '', 'rate':'1'};
                 } else {
                     attr = _.attempt(JSON.parse.bind(null, this.doc.attr));
                     if(attr.rate){
-                        _.extend(attr, {rate:attr.rate + 1});    
+                        _.extend(attr, {rate: `${attr.rate + 1}`});    
                     } else {
-                        _.extend(attr, {rate:1}); 
+                        _.extend(attr, {rate:'1'}); 
                     }
                 }
                 
@@ -83,7 +83,7 @@ export default {
                     data: { content: value, ftype: this.doc.ftype, attr: attr, index: true }    
                 };
 
-                this.m3.dfsWrite(param).then( rtn=>{
+                this.m3.dfs.write(param).then( rtn=>{
                     this.$message.success("提交成功");
                 }).catch(err=>{
                     this.$message.error("提交失败，请确认。");
